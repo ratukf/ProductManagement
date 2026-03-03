@@ -31,7 +31,7 @@ const login = async (username, password) => {
 };
 
 // Get user data async action
-export const getUser = async () => {
+const getUser = async () => {
   const { setLoading, setError, setUser } = useAuthStore.getState();
 
   // Set get user state while loading
@@ -58,4 +58,4 @@ export const getUser = async () => {
   }
 };
 
-export { login };
+export { login, getUser };
