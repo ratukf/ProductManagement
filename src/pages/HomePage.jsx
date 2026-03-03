@@ -1,6 +1,7 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useAuthStore } from "../store/authStore";
 import { useLogout } from "../hooks/useLogout";
+import ProductsPage from "./ProductsPage";
 
 const HomePage = () => {
   const { user } = useAuthStore();
@@ -8,10 +9,13 @@ const HomePage = () => {
 
   return (
     <Box>
-      <Typography variant="h4">
-        Hello, {user?.firstName} {user?.lastName}
-      </Typography>
-      <Button onClick={handleLogout}>Logout</Button>
+      <Box>
+        <Typography variant="h4">
+          Hello, {user?.firstName} {user?.lastName}
+        </Typography>
+        <Button onClick={handleLogout}>Logout</Button>
+      </Box>
+      <ProductsPage />
     </Box>
   );
 };
