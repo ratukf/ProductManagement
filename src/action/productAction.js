@@ -1,6 +1,7 @@
 import { productService } from "../services/productService";
 import { useProductStore } from "../store/productStore";
 
+// Get all products
 const getAllProduct = async ({
   search = "",
   limit = 10,
@@ -34,4 +35,25 @@ const getAllProduct = async ({
   }
 };
 
-export { getAllProduct };
+// Get one product by id
+const getProductById = async ({ id }) => {
+  const { setLoading, setError, setCurrentProduct } =
+    useProductStore.getState();
+
+  setLoading(true);
+  setError(null);
+
+  try {
+    const data = await productService.getById({ id });
+    // Set product and loading state while success
+    setCurrentProduct(data);
+    setLoading(false);
+    return { success: true };
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to fetch product");
+    setLoading(false);
+    return { success: false };
+  }
+};
+
+export { getAllProduct, getProductById };
