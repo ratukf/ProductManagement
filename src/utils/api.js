@@ -1,4 +1,6 @@
 import axios from "axios";
+import { refreshToken } from "../action/authAction";
+import { useAuthStore } from "../store/authStore";
 
 // Instance used for API calling
 const api = axios.create({
@@ -24,12 +26,28 @@ api.interceptors.request.use((config) => {
 
 // Handler if response success or error
 api.interceptors.response.use(
+  // If success
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("auth-storage");
-      window.location.href = "/login";
+  // If error
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const result = await refreshToken();
+
+      if (result.success) {
+        // Retry request with new token if successfuly refresh token
+        const { token } = useAuthStore.getState();
+        originalRequest.headers["Authorization"] = `Bearer ${token}`;
+        return api(originalRequest);
+      } else {
+        // Logout if failed to refresh token
+        useAuthStore.getState().clearAuth();
+        window.location.href = "/login";
+      }
     }
+
     return Promise.reject(error);
   },
 );
