@@ -9,6 +9,15 @@
 
 A responsive product management web app built with React 19 and Material UI. API consumed are [DummyJSON_Auth](https://dummyjson.com/docs/auth) and [DummyJSON_Product](https://dummyjson.com/docs/products) API.
 
+## Demo screenshots
+
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-3.png)
+![alt text](image-2.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+
 ## Features
 
 - **Authentication** — login with JWT, auto token refresh on 401, persisten session via localStorage
