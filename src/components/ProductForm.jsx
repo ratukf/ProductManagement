@@ -3,7 +3,7 @@ import { FormField } from "./FormField";
 import { useProductForm } from "../hooks/useProductForm";
 
 const ProductForm = ({ initialValues = null, onSuccess }) => {
-  const { formik, isSubmitting, error } = useProductForm({
+  const { formik, isSubmitting } = useProductForm({
     initialValues,
     onSuccess,
   });
@@ -14,7 +14,6 @@ const ProductForm = ({ initialValues = null, onSuccess }) => {
       onSubmit={formik.handleSubmit}
       sx={{ display: "flex", flexDirection: "column", gap: 2 }}
     >
-      {error && <Alert severity="error">{error}</Alert>}
       <FormField formik={formik} name="title" label="Title" />
       <FormField
         formik={formik}

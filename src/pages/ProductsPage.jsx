@@ -23,7 +23,7 @@ import { FilterToolbar } from "../components/FilterToolbar";
 const LIMIT = 10;
 
 const ProductsPage = () => {
-  const { products, total, isLoading, isSubmitting, error } = useProductStore();
+  const { products, total, isLoading, isSubmitting } = useProductStore();
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("title");
   const [order, setOrder] = useState("asc");
@@ -83,13 +83,6 @@ const ProductsPage = () => {
   return (
     <Box sx={{ minWidth: 0 }}>
       <PageHeader title="List" />
-
-      {/* Fallback if error is occuring */}
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      )}
 
       {/* Search + Sort By + Order + Add button */}
       <FilterToolbar
