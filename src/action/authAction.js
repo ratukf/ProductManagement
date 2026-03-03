@@ -1,5 +1,9 @@
 import { authService } from "../services/authService";
 import { useAuthStore } from "../store/authStore";
+import { useSnackbarStore } from "../store/snackbarStore";
+
+// Snackbar
+const { show } = useSnackbarStore.getState();
 
 // Login async action
 const login = async (username, password) => {
@@ -21,11 +25,13 @@ const login = async (username, password) => {
     });
     setToken(data.accessToken);
     setLoading(false);
+    show("Successfully get user data");
     return { success: true };
   } catch (err) {
     // Set error and loading if failed
     setError(err.response?.data?.message || "Login failed");
     setLoading(false);
+    show("Failed to get user data", "error");
     return { success: false };
   }
 };

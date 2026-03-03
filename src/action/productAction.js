@@ -1,5 +1,8 @@
 import { productService } from "../services/productService";
 import { useProductStore } from "../store/productStore";
+import { useSnackbarStore } from "../store/snackbarStore";
+
+const { show } = useSnackbarStore.getState();
 
 // Get all products
 const getAllProduct = async ({
@@ -33,6 +36,10 @@ const getAllProduct = async ({
     // Set error and loading state if failed
     setError(err.response?.data?.message || "Failed to fetch products");
     setLoading(false);
+    show(
+      `Failed to get products data: ${err.response?.data?.message}`,
+      "error",
+    );
     return { success: false };
   }
 };
@@ -54,6 +61,7 @@ const getProductById = async ({ id }) => {
   } catch (err) {
     setError(err.response?.data?.message || "Failed to fetch product");
     setLoading(false);
+    show(`Failed to get product data: ${err.response?.data?.message}`, "error");
     return { success: false };
   }
 };
@@ -72,10 +80,15 @@ const createProduct = async ({ payload }) => {
     setProducts([data, ...products]);
     setTotal(total + 1);
     setSubmitting(false);
+    show("New product sucessfully added");
     return { success: true, data };
   } catch (err) {
     setError(err.response?.data?.message || "Failed to create product");
     setSubmitting(false);
+    show(
+      `Failed to create new product: ${err.response?.data?.message}`,
+      "error",
+    );
     return { success: false };
   }
 };
@@ -94,10 +107,15 @@ const updateProduct = async ({ id, payload }) => {
     setProducts(products.map((p) => (p.id === Number(id) ? data : p)));
     setCurrentProduct(data);
     setSubmitting(false);
+    show("Product's data has been succesfully updated");
     return { success: true, data };
   } catch (err) {
     setError(err.response?.data?.message || "Failed to update product");
     setSubmitting(false);
+    show(
+      `Failed to update product's data: ${err.response?.data?.message}`,
+      "error",
+    );
     return { success: false };
   }
 };
@@ -116,10 +134,15 @@ const deleteProduct = async ({ id }) => {
     setProducts(products.filter((p) => p.id !== Number(id)));
     setTotal(total - 1);
     setSubmitting(false);
+    show("Product has been succesfully deleted");
     return { success: true };
   } catch (err) {
     setError(err.response?.data?.message || "Failed to delete product");
     setSubmitting(false);
+    show(
+      `Failed to delete the product: ${err.response?.data?.message}`,
+      "error",
+    );
     return { success: false };
   }
 };
