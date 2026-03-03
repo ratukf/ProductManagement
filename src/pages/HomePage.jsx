@@ -15,7 +15,6 @@ const HomePage = () => {
         </Typography>
         <Button onClick={handleLogout}>Logout</Button>
       </Box>
-      <ProductsPage />
     </Box>
   );
 };
