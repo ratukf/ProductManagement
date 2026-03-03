@@ -56,4 +56,76 @@ const getProductById = async ({ id }) => {
   }
 };
 
-export { getAllProduct, getProductById };
+// Create new product
+const createProduct = async ({ payload }) => {
+  const { setSubmitting, setError, setProducts, setTotal } =
+    useProductStore.getState();
+
+  setSubmitting(true);
+  setError(null);
+
+  try {
+    const data = await productService.create({ payload });
+    const { products, total } = useProductStore.getState();
+    setProducts([data, ...products]);
+    setTotal(total + 1);
+    setSubmitting(false);
+    return { success: true, data };
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to create product");
+    setSubmitting(false);
+    return { success: false };
+  }
+};
+
+// Update new product
+const updateProduct = async ({ id, payload }) => {
+  const { setSubmitting, setError, setCurrentProduct, setProducts } =
+    useProductStore.getState();
+
+  setSubmitting(true);
+  setError(null);
+
+  try {
+    const data = await productService.update({ id, payload });
+    const { products } = useProductStore.getState();
+    setProducts(products.map((p) => (p.id === Number(id) ? data : p)));
+    setCurrentProduct(data);
+    setSubmitting(false);
+    return { success: true, data };
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to update product");
+    setSubmitting(false);
+    return { success: false };
+  }
+};
+
+// Delete one product
+const deleteProduct = async ({ id }) => {
+  const { setSubmitting, setError, setProducts, setTotal } =
+    useProductStore.getState();
+
+  setSubmitting(true);
+  setError(null);
+
+  try {
+    await productService.remove({ id });
+    const { products, total } = useProductStore.getState();
+    setProducts(products.filter((p) => p.id !== Number(id)));
+    setTotal(total - 1);
+    setSubmitting(false);
+    return { success: true };
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to delete product");
+    setSubmitting(false);
+    return { success: false };
+  }
+};
+
+export {
+  getAllProduct,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
