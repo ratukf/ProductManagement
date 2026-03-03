@@ -6,6 +6,7 @@ import {
   CircularProgress,
   Typography,
   Alert,
+  Divider,
 } from "@mui/material";
 import { useLoginForm } from "../hooks/useLoginForm";
 import { FormField } from "../components/FormField";
@@ -15,18 +16,36 @@ const LoginPage = () => {
     useLoginForm();
 
   return (
-    <Box>
-      <Card>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        bgcolor: "background.default",
+        p: 2,
+      }}
+    >
+      <Card sx={{ width: "100%", maxWidth: 400 }}>
         <CardContent>
-          {/* Welcome text */}
-          <Typography variant="h4">Welcome</Typography>
-          <Typography variant="body2">Sign in to your account</Typography>
+          <Typography variant="h5" gutterBottom>
+            Welcome back
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 3 }}>
+            Sign in to your account to continue
+          </Typography>
 
-          {/* Error */}
-          {error && <Alert severity="error">{error}</Alert>}
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
 
-          {/* Form component */}
-          <Box component="form" onSubmit={formik.handleSubmit}>
+          <Box
+            component="form"
+            onSubmit={formik.handleSubmit}
+            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          >
             <FormField
               formik={formik}
               name="username"
@@ -42,15 +61,27 @@ const LoginPage = () => {
               onTogglePassword={toggleShowPassword}
               autoComplete="current-password"
             />
-            <Button type="submit" variant="contained" disabled={isLoading}>
-              {isLoading ? <CircularProgress /> : "Sign In"}
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              disabled={isLoading}
+              fullWidth
+            >
+              {isLoading ? (
+                <CircularProgress size={20} color="inherit" />
+              ) : (
+                "Sign In"
+              )}
             </Button>
           </Box>
 
-          {/* Show dummy username & password */}
-          <Box>
-            <Typography variant="caption">
-              Demo: <strong>emilys</strong> / <strong>emilyspass</strong>
+          <Divider sx={{ my: 2.5 }} />
+
+          <Box sx={{ bgcolor: "background.default", borderRadius: 2, p: 1.5 }}>
+            <Typography variant="caption" color="text.secondary">
+              Demo credentials: <strong>emilys</strong> /{" "}
+              <strong>emilyspass</strong>
             </Typography>
           </Box>
         </CardContent>
