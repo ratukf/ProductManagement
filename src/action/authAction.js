@@ -64,4 +64,26 @@ const logout = () => {
   clearAuth();
 };
 
-export { login, getUser, logout };
+// Refresh token
+const refreshToken = async () => {
+  const { setLoading, setError, setToken } = useAuthStore.getState();
+
+  // Set refresh token state while loading
+  setLoading(true);
+  setError(null);
+
+  try {
+    const data = await authService.refreshToken();
+    // Set token and loading while loading refresh token
+    setToken(data.accessToken);
+    setLoading(false);
+    return { success: true };
+  } catch (err) {
+    // Set error and loading while failed to refresh token
+    setError(err.response?.data?.message || "Failed to refresh token");
+    setLoading(false);
+    return { success: false };
+  }
+};
+
+export { login, getUser, logout, refreshToken };
