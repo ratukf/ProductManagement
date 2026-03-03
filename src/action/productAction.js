@@ -1,7 +1,7 @@
 import { productService } from "../services/productService";
 import { useProductStore } from "../store/productStore";
 
-const getAllProduct = async () => {
+const getAllProduct = async ({ search = "" }) => {
   const { setLoading, setError, setProducts } = useProductStore.getState();
 
   //   Set products state while loading
@@ -9,7 +9,7 @@ const getAllProduct = async () => {
   setError(null);
 
   try {
-    const data = await productService.getAll();
+    const data = await productService.getAll({ search });
     // Set products and loading state while success
     setProducts(data.products);
     setLoading(false);
