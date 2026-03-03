@@ -1,4 +1,4 @@
-# Product Management (Front End)
+# Product Management Software
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
@@ -7,35 +7,63 @@
 ![Axios](https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white)
 ![Zustand](https://img.shields.io/badge/zustand-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
-A web app featured with CRUD on dummy product API.
+A responsive product management web app built with React 19 and Material UI. API consumed are [DummyJSON_Auth](https://dummyjson.com/docs/auth) and [DummyJSON_Product](https://dummyjson.com/docs/products) API.
 
 ## Features
 
-- Authentication
-- View products list & search product
-- View one product detail
-- Add product
-- Edit product
-- Delete product
+- **Authentication** — login with JWT, auto token refresh on 401, persisten session via localStorage
+- **Dashboard** — stat overview (total, out of stock, low stock, avg rating) and recent products
+- **Product list** — search, sort by field, sort order (asc/desc), pagination
+- **Product detail** — image gallery, pricing with discount, logistics info, and customer reviews
+- **Add / Edit product** — form validation with Formik + Yup
+- **Delete product** — confirmation dialog before deletion
+- **Responsive** — mobile-friendly layout, table scrolls horizontally on small screens
 
-## Run the Project
+## Project Structure
 
-Clone the project
+```
+src/
+├── action/          # Call service & store update
+│   ├── authAction.js
+│   └── productAction.js
+├── components/      # Main layout & reusable coomponent
+├── hooks/           # useLoginForm, useProductForm, useLogout
+├── pages/           # All pages which has its own route
+├── services/        # Communicate directly with API
+├── store/           # Zustand stores
+├── utils/
+│   └── api.js       # Axios instance with auth interceptor
+├── theme.ts         # Global MUI theme
+└── main.jsx         # App entry
+```
+
+## Run the project
+
+**Clone and install**
 
 ```bash
 git clone https://github.com/ratukf/ProductManagement
-```
-
-Open the project's folder and install
-
-```bash
+cd ProductManagement
 npm install
 ```
 
-Run the project
+**Run in development**
 
 ```bash
-npm run dev # dev environment
+npm run dev
+```
+
+**Build for production**
+
+```bash
+npm run build
+```
+
+## Demo Credentials
+
+```
+Username : emilys
+Password : emilyspass
 ```
 
 ## License
