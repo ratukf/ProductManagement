@@ -20,13 +20,11 @@ const authService = {
   refreshToken: async () => {
     const stored = localStorage.getItem("auth-storage");
     const token = stored ? JSON.parse(stored)?.state?.token : null;
-    console.log("token sent to refresh:", token);
     const res = await axios.get("https://dummyjson.com/auth/refresh", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("refresh response:", res.data);
     return res.data;
   },
 };
