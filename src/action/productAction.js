@@ -9,7 +9,8 @@ const getAllProduct = async ({
   sortBy = "title",
   order = "asc",
 }) => {
-  const { setLoading, setError, setProducts } = useProductStore.getState();
+  const { setLoading, setError, setProducts, setTotal } =
+    useProductStore.getState();
 
   //   Set products state while loading
   setLoading(true);
@@ -25,6 +26,7 @@ const getAllProduct = async ({
     });
     // Set products and loading state while success
     setProducts(data.products);
+    setTotal(data.total);
     setLoading(false);
     return { success: true };
   } catch (err) {
