@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import ProtectedRoute from "./components/layout/ProtectedRoute.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import ProductDetailPage from "./pages/ProductDetailPage.jsx";
+import ProductsPage from "./pages/ProductsPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -12,7 +13,8 @@ createRoot(document.getElementById("root")).render(
       <Route path="/login" element={<LoginPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<HomePage />} />
-        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductDetailPage />} />
       </Route>
     </Routes>
   </BrowserRouter>,
