@@ -97,11 +97,15 @@ const ProductsPage = () => {
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <TableBody>
-            {products?.map((item, index) => (
+        <TableBody>
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={7} align="center">
+                <CircularProgress />
+              </TableCell>
+            </TableRow>
+          ) : (
+            products?.map((item, index) => (
               <TableRow key={item.id}>
                 <TableCell>{(page - 1) * LIMIT + index + 1}</TableCell>
                 <TableCell>{item.title}</TableCell>
@@ -124,9 +128,9 @@ const ProductsPage = () => {
                   </IconButton>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        )}
+            ))
+          )}
+        </TableBody>
       </Table>
 
       {/* Pagination */}
