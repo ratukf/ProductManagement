@@ -9,7 +9,11 @@ const ProductForm = ({ initialValues = null, onSuccess }) => {
   });
 
   return (
-    <Box component="form" onSubmit={formik.handleSubmit}>
+    <Box
+      component="form"
+      onSubmit={formik.handleSubmit}
+      sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+    >
       {error && <Alert severity="error">{error}</Alert>}
       <FormField formik={formik} name="title" label="Title" />
       <FormField
@@ -19,19 +23,25 @@ const ProductForm = ({ initialValues = null, onSuccess }) => {
         multiline
         rows={3}
       />
-      <FormField formik={formik} name="price" label="Price" type="number" />
-      <FormField formik={formik} name="stock" label="Stock" type="number" />
-      <FormField formik={formik} name="brand" label="Brand" />
-      <FormField formik={formik} name="category" label="Category" />
-      <Button type="submit" variant="contained" disabled={isSubmitting}>
-        {isSubmitting ? (
-          <CircularProgress size={20} />
-        ) : initialValues ? (
-          "Update Product"
-        ) : (
-          "Add Product"
-        )}
-      </Button>
+      <Box sx={{ display: "flex", gap: 2 }}>
+        <FormField formik={formik} name="price" label="Price" type="number" />
+        <FormField formik={formik} name="stock" label="Stock" type="number" />
+      </Box>
+      <Box sx={{ display: "flex", gap: 2 }}>
+        <FormField formik={formik} name="brand" label="Brand" />
+        <FormField formik={formik} name="category" label="Category" />
+      </Box>
+      <Box>
+        <Button type="submit" variant="contained" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <CircularProgress size={20} color="inherit" />
+          ) : initialValues ? (
+            "Update Product"
+          ) : (
+            "Add Product"
+          )}
+        </Button>
+      </Box>
     </Box>
   );
 };

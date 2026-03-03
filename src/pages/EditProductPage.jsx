@@ -1,9 +1,10 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Card, CardContent, CircularProgress } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useProductStore } from "../store/productStore";
 import { getProductById } from "../action/productAction";
 import { ProductForm } from "../components/ProductForm";
+import { PageHeader } from "../components/PageHeader";
 
 const EditProductPage = () => {
   const nav = useNavigate();
@@ -19,14 +20,15 @@ const EditProductPage = () => {
 
   return (
     <Box>
-      <Button variant="outlined" onClick={() => nav(`/products/${id}`)}>
-        Back
-      </Button>
-      <Typography variant="h5">Edit Product</Typography>
-      <ProductForm
-        initialValues={currentProduct}
-        onSuccess={() => nav(`/products/${id}`)}
-      />
+      <PageHeader title="Edit Product" backTo={`/products/${id}`} />
+      <Card>
+        <CardContent>
+          <ProductForm
+            initialValues={currentProduct}
+            onSuccess={() => nav(`/products/${id}`)}
+          />
+        </CardContent>
+      </Card>
     </Box>
   );
 };
