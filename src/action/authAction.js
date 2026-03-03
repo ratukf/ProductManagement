@@ -58,4 +58,10 @@ const getUser = async () => {
   }
 };
 
-export { login, getUser };
+// Log out
+const logout = () => {
+  const { clearAuth } = useAuthStore.getState();
+  clearAuth();
+};
+
+export { login, getUser, logout };
