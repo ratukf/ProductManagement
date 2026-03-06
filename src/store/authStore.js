@@ -7,12 +7,14 @@ const useAuthStore = create(
       // Authentication state
       user: null,
       token: null,
+      refreshToken: null,
       isLoading: false,
       error: null,
 
       // Authentication state setter
       setUser: (user) => set({ user }),
       setToken: (token) => set({ token }),
+      setRefreshToken: (refreshToken) => set({ refreshToken }),
       setLoading: (isLoading) => set({ isLoading }),
       setError: (error) => set({ error }),
       clearAuth: () => set({ user: null, token: null }),

@@ -7,7 +7,8 @@ const { show } = useSnackbarStore.getState();
 
 // Login async action
 const login = async (username, password) => {
-  const { setLoading, setError, setUser, setToken } = useAuthStore.getState();
+  const { setLoading, setError, setUser, setToken, setRefreshToken } =
+    useAuthStore.getState();
 
   // Set auth state while loading
   setLoading(true);
@@ -24,6 +25,7 @@ const login = async (username, password) => {
       image: data.image,
     });
     setToken(data.accessToken);
+    setRefreshToken(data.refreshToken);
     setLoading(false);
     show("Successfully get user data");
     return { success: true };

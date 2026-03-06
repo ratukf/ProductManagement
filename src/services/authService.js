@@ -1,4 +1,3 @@
-import axios from "axios";
 import { api } from "../utils/api";
 
 const authService = {
@@ -19,11 +18,12 @@ const authService = {
   // Refresh token
   refreshToken: async () => {
     const stored = localStorage.getItem("auth-storage");
-    const token = stored ? JSON.parse(stored)?.state?.token : null;
-    const res = await axios.get("https://dummyjson.com/auth/refresh", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const refreshToken = stored
+      ? JSON.parse(stored)?.state?.refreshToken
+      : null;
+    const res = await api.post("/auth/refresh", {
+      refreshToken,
+      expiresInMins: 30,
     });
     return res.data;
   },
