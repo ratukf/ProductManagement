@@ -4,7 +4,7 @@ import { api } from "../utils/api";
 const authService = {
   // Log in service
   login: async (username, password) => {
-    const res = await api.post("auth/login", {
+    const res = await api.post("/auth/login", {
       username,
       password,
       expiresInMins: 30,
